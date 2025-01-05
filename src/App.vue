@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import { Button } from '@/components/ui/button';
+import Toaster from '@/components/ui/toast/Toaster.vue';
+import LoginForm from './components/features/auth/LoginForm.vue';
 </script>
 
 <template>
-	<div>
-		<Button>Click me</Button>
+	<div class="h-screen flex items-center justify-center">
+		<LoginForm />
 	</div>
+	<Toaster />
 </template>
