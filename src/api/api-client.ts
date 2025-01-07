@@ -13,6 +13,11 @@ export class ApiClient extends ApiClientBase {
 		super(url, http as ApiHttpClient);
 		(http as ApiHttpClient).fetch = this.fetchWrapper.bind(this);
 
+		const token = localStorage.getItem('jwt');
+		if (token) {
+			this.#authToken = token;
+		}
+
 		this.jsonParseReviver = dateReviver;
 	}
 

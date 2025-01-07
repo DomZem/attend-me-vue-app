@@ -502,7 +502,7 @@ export class ApiClientBase {
 	 * @param sessionId (optional)
 	 * @return Success
 	 */
-	courseSessionAttendanceListGet(sessionId: number | undefined): Promise<CourseSessionAttendanceRecord> {
+	courseSessionAttendanceListGet(sessionId: number | undefined): Promise<CourseSessionAttendanceRecord[]> {
 		let url_ = this.baseUrl + '/course/session/attendance-list/get?';
 		if (sessionId === null) throw new Error("The parameter 'sessionId' cannot be null.");
 		else if (sessionId !== undefined) url_ += 'sessionId=' + encodeURIComponent('' + sessionId) + '&';
@@ -520,7 +520,7 @@ export class ApiClientBase {
 		});
 	}
 
-	protected processCourseSessionAttendanceListGet(response: Response): Promise<CourseSessionAttendanceRecord> {
+	protected processCourseSessionAttendanceListGet(response: Response): Promise<CourseSessionAttendanceRecord[]> {
 		const status = response.status;
 		let _headers: any = {};
 		if (response.headers && response.headers.forEach) {
@@ -537,7 +537,7 @@ export class ApiClientBase {
 				return throwException('An unexpected server error occurred.', status, _responseText, _headers);
 			});
 		}
-		return Promise.resolve<CourseSessionAttendanceRecord>(null as any);
+		return Promise.resolve<CourseSessionAttendanceRecord[]>(null as any);
 	}
 
 	/**
@@ -737,6 +737,50 @@ export class ApiClientBase {
 		return this.http.fetch(url_, options_).then((_response: Response) => {
 			return this.processUserDeviceRegister(_response);
 		});
+	}
+
+	courseSessionGet(sessionId: number | undefined): Promise<CourseSessionListItem> {
+		let url_ = this.baseUrl + '/course/session/get?';
+		if (sessionId === null) throw new Error("The parameter 'sessionId' cannot be null.");
+		else if (sessionId !== undefined) url_ += 'sessionId=' + encodeURIComponent('' + sessionId) + '&';
+		url_ = url_.replace(/[?&]$/, '');
+
+		let options_: RequestInit = {
+			method: 'GET',
+			headers: {
+				Accept: 'text/plain',
+			},
+		};
+
+		return this.http.fetch(url_, options_).then((_response: Response) => {
+			return this.processGetGET(_response);
+		});
+	}
+
+	protected processGetGET(response: Response): Promise<CourseSessionListItem> {
+		const status = response.status;
+		let _headers: any = {};
+		if (response.headers && response.headers.forEach) {
+			response.headers.forEach((v: any, k: any) => (_headers[k] = v));
+		}
+		if (status === 200) {
+			return response.text().then((_responseText) => {
+				let result200: any = null;
+				let resultData200 = _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
+				return result200;
+			});
+		} else if (status === 403) {
+			return response.text().then((_responseText) => {
+				let result403: any = null;
+				let resultData403 = _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
+				return throwException('Forbidden', status, _responseText, _headers, result403);
+			});
+		} else if (status !== 200 && status !== 204) {
+			return response.text().then((_responseText) => {
+				return throwException('An unexpected server error occurred.', status, _responseText, _headers);
+			});
+		}
+		return Promise.resolve<CourseSessionListItem>(null as any);
 	}
 
 	protected processUserDeviceRegister(response: Response): Promise<string> {

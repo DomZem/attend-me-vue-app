@@ -1,11 +1,9 @@
 <script setup lang="ts">
 import Toaster from '@/components/ui/toast/Toaster.vue';
-import LoginForm from './components/features/auth/LoginForm.vue';
+import { RouterView } from 'vue-router';
 </script>
 
 <template>
-	<div class="h-screen flex items-center justify-center">
-		<LoginForm />
-	</div>
+	<RouterView />
 	<Toaster />
 </template>
