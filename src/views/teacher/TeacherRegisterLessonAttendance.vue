@@ -1,3 +1,9 @@
+<script setup lang="ts">
+const handleDetect = (detectedCode) => {
+	console.log(detectedCode);
+};
+</script>
+
 <template>
-	<p>let's register lesson attendance</p>
+	<qrcode-stream @detect="handleDetect"></qrcode-stream>
 </template>
