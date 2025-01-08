@@ -10,21 +10,21 @@ export const studentLessonsColumns: ColumnDef<CourseSessionListItem>[] = [
 		accessorKey: 'courseName',
 		header: () => h('div', { class: '' }, 'Name'),
 		cell: ({ row }) => {
-			return h('div', { class: '' }, row.getValue('courseName'));
+			return h('div', { class: '' }, row.original.courseName);
 		},
 	},
 	{
 		accessorKey: 'locationName',
 		header: () => h('div', { class: '' }, 'Location'),
 		cell: ({ row }) => {
-			return h('div', { class: '' }, row.getValue('locationName'));
+			return h('div', { class: '' }, row.original.locationName);
 		},
 	},
 	{
 		accessorKey: 'dateStart',
 		header: () => h('div', { class: '' }, 'Start Date'),
 		cell: ({ row }) => {
-			const formatedDate = dayjs(row.getValue('dateStart')).format('YYYY-MM-DD HH:mm');
+			const formatedDate = dayjs(row.original.dateStart).format('YYYY-MM-DD HH:mm');
 			return h('div', { class: '' }, formatedDate);
 		},
 	},
@@ -32,7 +32,7 @@ export const studentLessonsColumns: ColumnDef<CourseSessionListItem>[] = [
 		accessorKey: 'dateEnd',
 		header: () => h('div', { class: '' }, 'End Date'),
 		cell: ({ row }) => {
-			const formatedDate = dayjs(row.getValue('dateEnd')).format('YYYY-MM-DD HH:mm');
+			const formatedDate = dayjs(row.original.dateEnd).format('YYYY-MM-DD HH:mm');
 			return h('div', { class: '' }, formatedDate);
 		},
 	},

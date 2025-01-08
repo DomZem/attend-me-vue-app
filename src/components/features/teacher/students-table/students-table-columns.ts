@@ -2,6 +2,7 @@ import type { CourseSessionAttendanceRecord } from '@/api/api-client-base';
 import Badge from '@/components/ui/badge/Badge.vue';
 import type { ColumnDef } from '@tanstack/vue-table';
 import { h } from 'vue';
+import CopyRegisterStudentDeviceLinkButton from './CopyRegisterStudentDeviceLinkButton.vue';
 
 export const studentAttendanceColumns: ColumnDef<CourseSessionAttendanceRecord>[] = [
 	{
@@ -30,6 +31,15 @@ export const studentAttendanceColumns: ColumnDef<CourseSessionAttendanceRecord>[
 		header: () => h('div', { class: '' }, 'Present'),
 		cell: ({ row }) => {
 			return h(Badge, { variant: row.original.wasUserPresent ? 'secondary' : 'destructive' }, row.original.wasUserPresent ? 'Present' : 'Absent');
+		},
+	},
+	{
+		id: 'registerStudentDevice',
+		header: () => h('div', { class: '' }, 'Register device link'),
+		cell: ({ row }) => {
+			const student = row.original;
+
+			return h(CopyRegisterStudentDeviceLinkButton, { userId: student.attenderUserId! }, 'Copy');
 		},
 	},
 ];

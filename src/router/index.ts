@@ -4,15 +4,19 @@ import LoginView from '@/views/LoginView.vue';
 import StudentDashboardView from '@/views/student/StudentDashboardView.vue';
 import StudentLessonDetailsView from '@/views/student/StudentLessonDetailsView.vue';
 import StudentLessonsView from '@/views/student/StudentLessonsView.vue';
+import StudentRegisterDevice from '@/views/student/StudentRegisterDevice.vue';
 import StudentRegisterLessonAttendanceView from '@/views/student/StudentRegisterLessonAttendanceView.vue';
 import TeacherDashboardView from '@/views/teacher/TeacherDashboardView.vue';
 import TeacherLessonDetailsView from '@/views/teacher/TeacherLessonDetailsView.vue';
 import TeacherLessonsView from '@/views/teacher/TeacherLessonsView.vue';
 import TeacherRegisterLessonAttendance from '@/views/teacher/TeacherRegisterLessonAttendance.vue';
 import { createRouter, createWebHistory } from 'vue-router';
-
 const routes = [
 	{ path: '/', component: LoginView },
+	{
+		path: '/register-student-device/:token',
+		component: StudentRegisterDevice,
+	},
 	{
 		path: '/teacher',
 		component: TeacherLayout,
