@@ -34,6 +34,11 @@ export class ApiClient extends ApiClientBase {
 		}
 	}
 
+	deviceAuthReset() {
+		this.deviceTokenResult = undefined;
+		window.localStorage.removeItem('attend-me:deviceAuthData');
+	}
+
 	override userLogin(loginName: string, password: string): Promise<TokenResult> {
 		return super.userLogin(loginName, password).then((r) => {
 			if (!r || !r.token) throw new Error('Authorization response returned empty token!');
@@ -101,8 +106,6 @@ export class ApiClient extends ApiClientBase {
 
 		return request;
 	}
-
-	private restore() {}
 }
 
 type ApiHttpClient = {
