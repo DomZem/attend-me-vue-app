@@ -1,3 +1,4 @@
+import { createPinia } from 'pinia';
 import { createApp } from 'vue';
 import { VueQrcodeReader } from 'vue-qrcode-reader';
 import { ApiClient } from './api/api-client';
@@ -7,4 +8,7 @@ import { router } from './router';
 
 export const apiClient = new ApiClient('https://attendme-backend.runasp.net');
 
-createApp(App).use(router).use(VueQrcodeReader).mount('#app');
+const app = createApp(App);
+const pinia = createPinia();
+
+app.use(router).use(pinia).use(VueQrcodeReader).mount('#app');

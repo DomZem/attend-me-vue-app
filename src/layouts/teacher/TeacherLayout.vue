@@ -7,6 +7,7 @@ import AppHeader from '../common/AppHeader.vue';
 import AppMain from '../common/AppMain.vue';
 import AppWrapper from '../common/AppWrapper.vue';
 import LogoLink from '../common/LogoLink.vue';
+import UserDropdown from '../common/UserDropdown.vue';
 import TeacherMenu from './TeacherMenu.vue';
 </script>
 
@@ -20,7 +21,9 @@ import TeacherMenu from './TeacherMenu.vue';
 				<div class="flex-1">
 					<TeacherMenu class="px-2 lg:px-4" />
 				</div>
-				<div class="mt-auto p-4"></div>
+				<div class="mt-auto p-4">
+					<UserDropdown />
+				</div>
 			</div>
 		</div>
 		<div class="flex flex-col">

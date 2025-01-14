@@ -3,12 +3,11 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import Logo from '@/components/ui/Logo.vue';
 import { useToast } from '@/components/ui/toast/use-toast';
-import { apiClient } from '@/main';
+import { useUserStore } from '@/stores/user-store';
 import { toTypedSchema } from '@vee-validate/zod';
-import { jwtDecode } from 'jwt-decode';
 import { useForm } from 'vee-validate';
-import { useRouter } from 'vue-router';
 import * as z from 'zod';
 
 const formSchema = toTypedSchema(
@@ -18,41 +17,19 @@ const formSchema = toTypedSchema(
 	})
 );
 
+const userStore = useUserStore();
 const { toast } = useToast();
-const router = useRouter();
 const { handleSubmit } = useForm({
 	validationSchema: formSchema,
 });
 
 const onSubmit = handleSubmit(async ({ loginName, password }) => {
 	try {
-		const response = await apiClient.userLogin(loginName, password);
-
-		if (response.token) {
-			toast({
-				title: 'Login successful',
-				description: "You're now logged in",
-			});
-
-			const token = jwtDecode(response.token) as {
-				'http://schemas.microsoft.com/ws/2008/06/identity/claims/role': 'student' | 'teacher';
-			};
-
-			localStorage.setItem('jwt', response.token);
-
-			if (token['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] === 'student') {
-				router.push('/student/dashboard');
-			} else if (token['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] === 'teacher') {
-				router.push('/teacher/dashboard');
-			}
-
-			return;
-		}
+		await userStore.login(loginName, password);
 
 		toast({
-			title: 'Login failed',
-			description: 'Invalid login or password',
-			variant: 'destructive',
+			title: 'Login successful',
+			description: "You're now logged in",
 		});
 	} catch (e) {
 		toast({
@@ -66,8 +43,11 @@ const onSubmit = handleSubmit(async ({ loginName, password }) => {
 
 <template>
 	<Card class="w-full max-w-md">
-		<CardHeader>
-			<CardTitle class="text-2xl">Login </CardTitle>
+		<CardHeader class="flex items-center justify-center">
+			<div class="inline-flex flex-col items-center gap-2">
+				<Logo />
+				<CardTitle class="font-semibold text-base">AttendMe</CardTitle>
+			</div>
 		</CardHeader>
 		<form @submit="onSubmit">
 			<CardContent class="grid gap-4">
@@ -92,7 +72,7 @@ const onSubmit = handleSubmit(async ({ loginName, password }) => {
 				</FormField>
 			</CardContent>
 			<CardFooter>
-				<Button class="w-full"> Sign in </Button>
+				<Button class="w-full">Login</Button>
 			</CardFooter>
 		</form>
 	</Card>
