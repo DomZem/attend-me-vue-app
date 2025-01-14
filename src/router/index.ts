@@ -1,12 +1,10 @@
 import StudentLayout from '@/layouts/student/StudentLayout.vue';
 import TeacherLayout from '@/layouts/teacher/TeacherLayout.vue';
 import LoginView from '@/views/LoginView.vue';
-import StudentDashboardView from '@/views/student/StudentDashboardView.vue';
 import StudentLessonDetailsView from '@/views/student/StudentLessonDetailsView.vue';
 import StudentLessonsView from '@/views/student/StudentLessonsView.vue';
 import StudentRegisterDevice from '@/views/student/StudentRegisterDevice.vue';
 import StudentRegisterLessonAttendanceView from '@/views/student/StudentRegisterLessonAttendanceView.vue';
-import TeacherDashboardView from '@/views/teacher/TeacherDashboardView.vue';
 import TeacherLessonDetailsView from '@/views/teacher/TeacherLessonDetailsView.vue';
 import TeacherLessonsView from '@/views/teacher/TeacherLessonsView.vue';
 import TeacherRegisterLessonAttendance from '@/views/teacher/TeacherRegisterLessonAttendance.vue';
@@ -28,10 +26,6 @@ const routes = [
 		// 	next();
 		// },
 		children: [
-			{
-				path: 'dashboard',
-				component: TeacherDashboardView,
-			},
 			{
 				path: 'lessons',
 				component: TeacherLessonsView,
@@ -60,19 +54,15 @@ const routes = [
 		// },
 		children: [
 			{
-				path: 'dashboard',
-				component: StudentDashboardView,
-			},
-			{
 				path: 'lessons',
 				component: StudentLessonsView,
 			},
 			{
-				path: 'lessons/:id',
+				path: 'lessons/:lessonGroupId/:lessonId',
 				component: StudentLessonDetailsView,
 			},
 			{
-				path: 'lessons/:id/register-attendance',
+				path: 'lessons/register-attendance',
 				component: StudentRegisterLessonAttendanceView,
 			},
 		],

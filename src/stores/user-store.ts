@@ -26,9 +26,9 @@ export const useUserStore = defineStore('user', {
 			window.localStorage.setItem('attend-me:userInfo', JSON.stringify(user));
 
 			if (user.isStudent) {
-				router.push('/student/dashboard');
+				router.push('/student/lessons');
 			} else {
-				router.push('/teacher/dashboard');
+				router.push('/teacher/lessons');
 			}
 		},
 
